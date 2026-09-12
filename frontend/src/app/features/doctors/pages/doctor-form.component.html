@@ -1,0 +1,71 @@
+<div class="hpm-page">
+  <app-page-header [title]="isEditMode ? 'Editar Médico' : 'Novo Médico'" subtitle="Preencha os dados do médico">
+    <a mat-stroked-button routerLink="/doctors"><mat-icon>arrow_back</mat-icon> Voltar</a>
+  </app-page-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="hpm-card form-card">
+    <h3 class="section-title">Dados profissionais</h3>
+    <div class="form-grid">
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Nome completo</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>CRM</mat-label>
+        <input matInput formControlName="crm" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Especialidade</mat-label>
+        <mat-select formControlName="specialty">
+          <mat-option *ngFor="let s of specialtyOptions" [value]="s">{{ specialtyLabels[s] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="isEditMode">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let s of statusOptions" [value]="s">{{ statusLabels[s] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <h3 class="section-title">Dados pessoais e contato</h3>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" appCpfMask placeholder="000.000.000-00" maxlength="14" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data de nascimento</mat-label>
+        <input matInput [matDatepicker]="birthPicker" formControlName="birthDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
+        <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+        <mat-datepicker #birthPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input matInput formControlName="phone" appPhoneMask placeholder="(00) 00000-0000" maxlength="15" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Endereço</mat-label>
+        <input matInput formControlName="address" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <a mat-stroked-button routerLink="/doctors">Cancelar</a>
+      <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
+        {{ isEditMode ? 'Salvar alterações' : 'Cadastrar médico' }}
+      </button>
+    </div>
+  </form>
+</div>

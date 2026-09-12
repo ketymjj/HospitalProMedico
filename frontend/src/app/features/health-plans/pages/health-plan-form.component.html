@@ -1,0 +1,60 @@
+<div class="hpm-page">
+  <app-page-header [title]="isEditMode ? 'Editar Plano de Saúde' : 'Novo Plano de Saúde'" subtitle="Preencha os dados do convênio">
+    <a mat-stroked-button routerLink="/health-plans"><mat-icon>arrow_back</mat-icon> Voltar</a>
+  </app-page-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="hpm-card form-card">
+    <div class="form-grid">
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Código</mat-label>
+        <input matInput formControlName="code" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>CNPJ</mat-label>
+        <input matInput formControlName="cnpj" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let t of typeOptions" [value]="t">{{ typeLabels[t] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="isEditMode">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let s of statusOptions" [value]="s">{{ statusLabels[s] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Endereço</mat-label>
+        <input matInput formControlName="address" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <a mat-stroked-button routerLink="/health-plans">Cancelar</a>
+      <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
+        {{ isEditMode ? 'Salvar alterações' : 'Cadastrar plano' }}
+      </button>
+    </div>
+  </form>
+</div>

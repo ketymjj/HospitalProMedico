@@ -1,0 +1,31 @@
+<aside class="sidebar" [class.collapsed]="collapsed">
+  <div class="sidebar-brand">
+    <div class="brand-icon">
+      <mat-icon>local_hospital</mat-icon>
+    </div>
+    <div class="brand-text">
+      <strong>Hospital</strong>
+      <span>ProMédico</span>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ng-container *ngFor="let item of menuItems">
+      <a
+        *ngIf="isVisible(item)"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        class="sidebar-link"
+        (click)="onNavigate()"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span class="link-label">{{ item.label }}</span>
+      </a>
+    </ng-container>
+  </nav>
+
+  <div class="sidebar-footer">
+    <span class="link-label">Hospital ProMédico &copy; {{ 2026 }}</span>
+  </div>
+</aside>

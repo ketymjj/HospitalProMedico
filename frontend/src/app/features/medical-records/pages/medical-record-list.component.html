@@ -1,0 +1,45 @@
+<div class="hpm-page">
+  <app-page-header title="Prontuários" subtitle="Histórico de atendimentos médicos">
+    <a mat-flat-button color="primary" routerLink="/medical-records/new" *ngIf="canManage">
+      <mat-icon>add</mat-icon> Novo Prontuário
+    </a>
+  </app-page-header>
+
+  <div class="hpm-card">
+    <div class="hpm-filters" style="padding: 16px 16px 0;">
+      <mat-form-field appearance="outline" style="width: 300px">
+        <mat-label>Pesquisar</mat-label>
+        <input matInput placeholder="Paciente ou diagnóstico" [ngModel]="search" (ngModelChange)="onSearchChange($event)" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="loading()"></mat-progress-bar>
+
+    <div class="records-wrapper" *ngIf="items().length > 0; else emptyState">
+      <div class="record-card" *ngFor="let r of items()">
+        <div class="record-header">
+          <div>
+            <strong>{{ r.patientName }}</strong>
+            <span> · {{ r.date | date: 'dd/MM/yyyy' }} · {{ r.doctorName }}</span>
+          </div>
+          <div class="record-actions" *ngIf="canManage">
+            <button mat-icon-button [routerLink]="['/medical-records', r.id, 'edit']" matTooltip="Editar"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button color="warn" matTooltip="Excluir" (click)="remove(r)"><mat-icon>delete</mat-icon></button>
+          </div>
+        </div>
+        <p><strong>Queixa principal:</strong> {{ r.chiefComplaint }}</p>
+        <p><strong>Histórico:</strong> {{ r.history }}</p>
+        <p><strong>Diagnóstico:</strong> {{ r.diagnosis }}</p>
+        <p><strong>Prescrição:</strong> {{ r.prescription }}</p>
+        <p *ngIf="r.exams"><strong>Exames:</strong> {{ r.exams }}</p>
+      </div>
+    </div>
+
+    <ng-template #emptyState>
+      <app-empty-state *ngIf="!loading()" icon="description" title="Nenhum prontuário encontrado" message="Ajuste os filtros ou registre um novo prontuário."></app-empty-state>
+    </ng-template>
+
+    <mat-paginator [length]="totalCount()" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50]" [pageIndex]="pageNumber - 1" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</div>

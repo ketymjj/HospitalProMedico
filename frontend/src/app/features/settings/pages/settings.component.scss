@@ -1,0 +1,17 @@
+.tab-content { padding: 20px; }
+
+.users-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.users-toolbar p {
+  margin: 0;
+  color: var(--hpm-text-muted);
+  font-size: 13px;
+}
+
+.actions-col { width: 120px; text-align: right; }
+th.actions-col { text-align: right; }

@@ -1,0 +1,25 @@
+<div class="hpm-page" *ngIf="doctor() as d">
+  <app-page-header [title]="d.name" [subtitle]="specialtyLabels[d.specialty]">
+    <a mat-stroked-button routerLink="/doctors"><mat-icon>arrow_back</mat-icon> Voltar</a>
+    <a mat-flat-button color="primary" [routerLink]="['/doctors', d.id, 'edit']"><mat-icon>edit</mat-icon> Editar</a>
+  </app-page-header>
+
+  <div class="hpm-card detail-card">
+    <div class="grid-2">
+      <div><span class="field-label">CRM</span><span class="field-value">{{ d.crm }}</span></div>
+      <div><span class="field-label">Especialidade</span><span class="field-value">{{ specialtyLabels[d.specialty] }}</span></div>
+      <div><span class="field-label">CPF</span><span class="field-value">{{ d.cpf }}</span></div>
+      <div><span class="field-label">Data de nascimento</span><span class="field-value">{{ d.birthDate | date: 'dd/MM/yyyy' }}</span></div>
+      <div><span class="field-label">Telefone</span><span class="field-value">{{ d.phone }}</span></div>
+      <div><span class="field-label">Email</span><span class="field-value">{{ d.email }}</span></div>
+      <div class="grid-span-2"><span class="field-label">Endereço</span><span class="field-value">{{ d.address }}</span></div>
+      <div><span class="field-label">Status</span><app-status-badge [label]="statusLabels[d.status]" [variant]="registerStatusVariant(d.status)"></app-status-badge></div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="hpm-card stat-mini"><mat-icon>event_available</mat-icon><div><strong>{{ d.appointmentsCount }}</strong><span>Consultas</span></div></div>
+    <div class="hpm-card stat-mini"><mat-icon>healing</mat-icon><div><strong>{{ d.surgeriesCount }}</strong><span>Cirurgias</span></div></div>
+    <div class="hpm-card stat-mini"><mat-icon>local_hospital</mat-icon><div><strong>{{ d.hospitalizationsCount }}</strong><span>Internações</span></div></div>
+  </div>
+</div>

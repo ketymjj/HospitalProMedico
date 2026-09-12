@@ -1,0 +1,67 @@
+<div class="hpm-page">
+  <app-page-header [title]="isEditMode ? 'Editar Prontuário' : 'Novo Prontuário'" subtitle="Preencha os dados do atendimento">
+    <a mat-stroked-button routerLink="/medical-records"><mat-icon>arrow_back</mat-icon> Voltar</a>
+  </app-page-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="hpm-card form-card">
+    <div class="form-grid">
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Paciente</mat-label>
+        <mat-select formControlName="patientId">
+          <mat-option *ngFor="let p of patients()" [value]="p.id">{{ p.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Médico</mat-label>
+        <mat-select formControlName="doctorId">
+          <mat-option *ngFor="let d of doctors()" [value]="d.id">{{ d.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Queixa principal</mat-label>
+        <textarea matInput formControlName="chiefComplaint" rows="2"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Histórico</mat-label>
+        <textarea matInput formControlName="history" rows="3"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Diagnóstico</mat-label>
+        <textarea matInput formControlName="diagnosis" rows="2"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Prescrição</mat-label>
+        <textarea matInput formControlName="prescription" rows="3"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Exames</mat-label>
+        <textarea matInput formControlName="exams" rows="2"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Observações</mat-label>
+        <textarea matInput formControlName="notes" rows="2"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <a mat-stroked-button routerLink="/medical-records">Cancelar</a>
+      <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
+        {{ isEditMode ? 'Salvar alterações' : 'Registrar prontuário' }}
+      </button>
+    </div>
+  </form>
+</div>

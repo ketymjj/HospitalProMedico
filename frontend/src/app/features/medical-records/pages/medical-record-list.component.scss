@@ -1,0 +1,27 @@
+.records-wrapper { padding: 16px; }
+
+.record-card {
+  padding: 16px;
+  border: 1px solid var(--hpm-border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.record-header span {
+  color: var(--hpm-text-muted);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.record-card p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: var(--hpm-text);
+}

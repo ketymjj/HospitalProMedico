@@ -1,0 +1,90 @@
+<div class="hpm-page">
+  <app-page-header [title]="isEditMode ? 'Editar Internação' : 'Nova Internação'" subtitle="Preencha os dados da internação">
+    <a mat-stroked-button routerLink="/hospitalizations"><mat-icon>arrow_back</mat-icon> Voltar</a>
+  </app-page-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="hpm-card form-card">
+    <div class="form-grid">
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Paciente</mat-label>
+        <mat-select formControlName="patientId">
+          <mat-option *ngFor="let p of patients()" [value]="p.id">{{ p.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de internação</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let t of typeOptions" [value]="t">{{ typeLabels[t] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Médico responsável</mat-label>
+        <mat-select formControlName="doctorId">
+          <mat-option *ngFor="let d of doctors()" [value]="d.id">{{ d.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="isEditMode">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option *ngFor="let s of statusOptions" [value]="s">{{ statusLabels[s] }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data de entrada</mat-label>
+        <input matInput [matDatepicker]="admissionPicker" formControlName="admissionDate" />
+        <mat-datepicker-toggle matSuffix [for]="admissionPicker"></mat-datepicker-toggle>
+        <mat-datepicker #admissionPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Previsão de alta</mat-label>
+        <input matInput [matDatepicker]="expectedPicker" formControlName="expectedDischargeDate" />
+        <mat-datepicker-toggle matSuffix [for]="expectedPicker"></mat-datepicker-toggle>
+        <mat-datepicker #expectedPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" *ngIf="isEditMode">
+        <mat-label>Data de alta</mat-label>
+        <input matInput [matDatepicker]="dischargePicker" formControlName="dischargeDate" />
+        <mat-datepicker-toggle matSuffix [for]="dischargePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dischargePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Quarto</mat-label>
+        <input matInput formControlName="room" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Leito</mat-label>
+        <input matInput formControlName="bed" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Diagnóstico</mat-label>
+        <input matInput formControlName="diagnosis" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Motivo da internação</mat-label>
+        <input matInput formControlName="reason" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-3">
+        <mat-label>Observações</mat-label>
+        <textarea matInput formControlName="notes" rows="3"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <a mat-stroked-button routerLink="/hospitalizations">Cancelar</a>
+      <button mat-flat-button color="primary" type="submit" [disabled]="saving()">
+        {{ isEditMode ? 'Salvar alterações' : 'Registrar internação' }}
+      </button>
+    </div>
+  </form>
+</div>

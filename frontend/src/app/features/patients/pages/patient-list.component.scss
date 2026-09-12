@@ -1,0 +1,15 @@
+.link-strong {
+  font-weight: 600;
+  color: var(--hpm-primary);
+}
+
+.link-strong:hover {
+  text-decoration: underline;
+}
+
+.actions-col {
+  width: 140px;
+  text-align: right;
+}
+
+th.actions-col { text-align: right; }

@@ -1,0 +1,63 @@
+<div class="hpm-page">
+  <app-page-header title="Planos de Saúde" subtitle="Gerencie os convênios aceitos pelo hospital">
+    <a mat-flat-button color="primary" routerLink="/health-plans/new" *ngIf="canManage">
+      <mat-icon>add</mat-icon> Novo Plano
+    </a>
+  </app-page-header>
+
+  <div class="hpm-card">
+    <div class="hpm-filters" style="padding: 16px 16px 0;">
+      <mat-form-field appearance="outline" style="width: 280px">
+        <mat-label>Pesquisar</mat-label>
+        <input matInput placeholder="Nome ou código" [ngModel]="search" (ngModelChange)="onSearchChange($event)" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="loading()"></mat-progress-bar>
+
+    <div class="hpm-table-wrapper" *ngIf="items().length > 0; else emptyState">
+      <table mat-table [dataSource]="items()">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let h">{{ h.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef>Código</th>
+          <td mat-cell *matCellDef="let h">{{ h.code }}</td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let h">{{ labelOf(typeLabels, h.type) }}</td>
+        </ng-container>
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef>Telefone</th>
+          <td mat-cell *matCellDef="let h">{{ h.phone }}</td>
+        </ng-container>
+        <ng-container matColumnDef="patients">
+          <th mat-header-cell *matHeaderCellDef>Pacientes</th>
+          <td mat-cell *matCellDef="let h">{{ h.patientsCount }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let h"><app-status-badge [label]="labelOf(statusLabels, h.status)" [variant]="statusVariant(h.status)"></app-status-badge></td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-col">Ações</th>
+          <td mat-cell *matCellDef="let h" class="actions-col">
+            <button mat-icon-button [routerLink]="['/health-plans', h.id, 'edit']" matTooltip="Editar" *ngIf="canManage"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button color="warn" matTooltip="Excluir" *ngIf="isAdmin" (click)="remove(h)"><mat-icon>delete</mat-icon></button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <ng-template #emptyState>
+      <app-empty-state *ngIf="!loading()" icon="assignment_ind" title="Nenhum plano encontrado" message="Cadastre um novo plano de saúde."></app-empty-state>
+    </ng-template>
+
+    <mat-paginator [length]="totalCount()" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50]" [pageIndex]="pageNumber - 1" (page)="onPageChange($event)"></mat-paginator>
+  </div>
+</div>

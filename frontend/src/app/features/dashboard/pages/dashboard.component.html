@@ -1,0 +1,80 @@
+<div class="hpm-page">
+  <div class="hpm-page-header">
+    <div>
+      <h1>Hospital ProMédico</h1>
+      <p>Bem-vindo ao sistema de gestão hospitalar — controle pacientes, médicos, internações e planos de saúde com eficiência.</p>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card hpm-card" *ngFor="let stat of stats">
+      <div class="stat-icon" [style.background]="stat.color + '1a'" [style.color]="stat.color">
+        <mat-icon>{{ stat.icon }}</mat-icon>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-grid" *ngIf="data()">
+    <div class="hpm-card chart-card">
+      <h3>Consultas por mês</h3>
+      <app-chart type="bar" [labels]="appointmentsByMonthLabels()" [data]="appointmentsByMonthValues()" label="Consultas"></app-chart>
+    </div>
+
+    <div class="hpm-card chart-card">
+      <h3>Internações por mês</h3>
+      <app-chart type="bar" [labels]="hospitalizationsByMonthLabels()" [data]="hospitalizationsByMonthValues()" label="Internações" [colors]="['#f2a900']"></app-chart>
+    </div>
+
+    <div class="hpm-card chart-card">
+      <h3>Pacientes por faixa etária</h3>
+      <app-chart type="bar" [labels]="patientsByAgeRangeLabels()" [data]="patientsByAgeRangeValues()" label="Pacientes" [colors]="['#00b4c6']"></app-chart>
+    </div>
+
+    <div class="hpm-card chart-card">
+      <h3>Distribuição por plano de saúde</h3>
+      <app-chart type="doughnut" [labels]="patientsByHealthPlanLabels()" [data]="patientsByHealthPlanValues()"></app-chart>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <h3>Ações rápidas</h3>
+    <div class="quick-actions-buttons">
+      <a routerLink="/patients" mat-flat-button color="primary">
+        <mat-icon>people</mat-icon> Pacientes
+      </a>
+      <a routerLink="/doctors" mat-flat-button color="primary">
+        <mat-icon>medical_services</mat-icon> Médicos
+      </a>
+      <a routerLink="/hospitalizations" mat-flat-button color="primary">
+        <mat-icon>local_hospital</mat-icon> Internações
+      </a>
+    </div>
+  </div>
+
+  <div class="info-cards">
+    <div class="hpm-card info-card">
+      <mat-icon class="info-icon" style="color: var(--hpm-primary)">bar_chart</mat-icon>
+      <h4>Relatórios</h4>
+      <p>Visualize estatísticas e relatórios de atendimentos.</p>
+      <a routerLink="/reports" mat-stroked-button color="primary">Acessar</a>
+    </div>
+
+    <div class="hpm-card info-card" *ngIf="canAccessFinance">
+      <mat-icon class="info-icon" style="color: var(--hpm-success)">payments</mat-icon>
+      <h4>Financeiro</h4>
+      <p>Gerencie pagamentos, planos e faturamento hospitalar.</p>
+      <a routerLink="/payments" mat-stroked-button color="primary">Acessar</a>
+    </div>
+
+    <div class="hpm-card info-card" *ngIf="canAccessSettings">
+      <mat-icon class="info-icon" style="color: var(--hpm-accent)">settings</mat-icon>
+      <h4>Configurações</h4>
+      <p>Personalize o sistema conforme as necessidades da instituição.</p>
+      <a routerLink="/settings" mat-stroked-button color="primary">Acessar</a>
+    </div>
+  </div>
+</div>

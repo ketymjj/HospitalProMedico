@@ -1,0 +1,48 @@
+<div class="login-page">
+  <div class="login-panel">
+    <div class="brand">
+      <div class="brand-icon"><mat-icon>local_hospital</mat-icon></div>
+      <h1>Hospital ProMédico</h1>
+      <p>Sistema de Gestão Hospitalar</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" autocomplete="username" />
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-error *ngIf="form.controls.email.hasError('required')">Email é obrigatório</mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('email')">Informe um email válido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" [type]="hidePassword() ? 'password' : 'text'" autocomplete="current-password" />
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword.set(!hidePassword())">
+          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="form.controls.password.hasError('required')">Senha é obrigatória</mat-error>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="full-width submit-btn" type="submit" [disabled]="loading()">
+        <mat-spinner *ngIf="loading()" diameter="20" class="btn-spinner"></mat-spinner>
+        <span *ngIf="!loading()">Entrar</span>
+      </button>
+    </form>
+
+    <div class="demo-hint">
+      <strong>Demonstração:</strong> admin&#64;hospital.com / Admin&#64;123
+    </div>
+
+    <div class="register-hint">
+      Não tem uma conta? <a routerLink="/register">Cadastre-se</a>
+    </div>
+  </div>
+
+  <div class="login-side">
+    <div class="side-content">
+      <h2>Cuidado e eficiência em um só lugar</h2>
+      <p>Gerencie pacientes, médicos, internações, cirurgias e muito mais com uma plataforma moderna e segura.</p>
+    </div>
+  </div>
+</div>

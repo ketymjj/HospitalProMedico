@@ -1,0 +1,120 @@
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--hpm-bg);
+}
+
+.login-panel {
+  flex: 1;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+  background: var(--hpm-surface);
+  overflow-y: auto;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.brand-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--hpm-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.brand-icon mat-icon { font-size: 30px; width: 30px; height: 30px; }
+
+.brand h1 {
+  font-size: 22px;
+  margin: 0 0 4px;
+  color: var(--hpm-text);
+}
+
+.brand p {
+  margin: 0;
+  color: var(--hpm-text-muted);
+  font-size: 14px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.full-width { width: 100%; }
+
+.submit-btn {
+  height: 46px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-spinner { display: inline-block; }
+
+.demo-hint {
+  margin-top: 24px;
+  padding: 12px 14px;
+  background: rgba(30, 80, 162, 0.08);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--hpm-primary-dark);
+  text-align: center;
+}
+
+.register-hint {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--hpm-text-muted);
+  text-align: center;
+}
+
+.register-hint a {
+  color: var(--hpm-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-hint a:hover {
+  text-decoration: underline;
+}
+
+.login-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--hpm-sidebar-bg), var(--hpm-primary));
+  color: #fff;
+  padding: 48px;
+}
+
+.side-content { max-width: 420px; }
+
+.side-content h2 {
+  font-size: 30px;
+  margin-bottom: 16px;
+}
+
+.side-content p {
+  font-size: 15px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .login-side { display: none; }
+  .login-panel { max-width: 100%; }
+}

@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="HospitalProMedico.API/HospitalProMedico.API.csproj" />
+  <Project Path="HospitalProMedico.Application/HospitalProMedico.Application.csproj" />
+  <Project Path="HospitalProMedico.Domain/HospitalProMedico.Domain.csproj" />
+  <Project Path="HospitalProMedico.Infrastructure/HospitalProMedico.Infrastructure.csproj" />
+  <Project Path="HospitalProMedico.Tests/HospitalProMedico.Tests.csproj" />
+</Solution>

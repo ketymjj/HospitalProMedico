@@ -1,0 +1,135 @@
+<div class="hpm-page" *ngIf="!loading(); else loadingTpl">
+  <ng-container *ngIf="patient() as p">
+    <app-page-header [title]="p.name" subtitle="Detalhes do paciente">
+      <a mat-stroked-button routerLink="/patients"><mat-icon>arrow_back</mat-icon> Voltar</a>
+      <a mat-flat-button color="primary" [routerLink]="['/patients', p.id, 'edit']">
+        <mat-icon>edit</mat-icon> Editar
+      </a>
+    </app-page-header>
+
+    <div class="hpm-card">
+      <mat-tab-group>
+        <mat-tab label="Dados pessoais">
+          <div class="tab-content grid-2">
+            <div><span class="field-label">Nome</span><span class="field-value">{{ p.name }}</span></div>
+            <div><span class="field-label">CPF</span><span class="field-value">{{ p.cpf }}</span></div>
+            <div><span class="field-label">Data de nascimento</span><span class="field-value">{{ p.birthDate | date: 'dd/MM/yyyy' }}</span></div>
+            <div><span class="field-label">Sexo</span><span class="field-value">{{ genderLabels[p.gender] }}</span></div>
+            <div><span class="field-label">Tipo sanguíneo</span><span class="field-value">{{ p.bloodType ? bloodTypeLabels[p.bloodType] : '—' }}</span></div>
+            <div><span class="field-label">Alergias</span><span class="field-value">{{ p.allergies || 'Nenhuma informada' }}</span></div>
+            <div><span class="field-label">Status</span><app-status-badge [label]="statusLabels[p.status]" [variant]="registerStatusVariant(p.status)"></app-status-badge></div>
+            <div class="grid-span-2" *ngIf="p.notes"><span class="field-label">Observações</span><span class="field-value">{{ p.notes }}</span></div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Contato">
+          <div class="tab-content grid-2">
+            <div><span class="field-label">Telefone</span><span class="field-value">{{ p.phone }}</span></div>
+            <div><span class="field-label">Email</span><span class="field-value">{{ p.email }}</span></div>
+            <div class="grid-span-2"><span class="field-label">Endereço</span><span class="field-value">{{ p.address }}</span></div>
+            <div><span class="field-label">Cidade</span><span class="field-value">{{ p.city }}</span></div>
+            <div><span class="field-label">Estado</span><span class="field-value">{{ p.state }}</span></div>
+            <div><span class="field-label">CEP</span><span class="field-value">{{ p.zipCode }}</span></div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Plano de saúde">
+          <div class="tab-content grid-2">
+            <div><span class="field-label">Plano</span><span class="field-value">{{ p.healthPlanName || 'Particular' }}</span></div>
+            <div><span class="field-label">Nº Carteirinha</span><span class="field-value">{{ p.healthPlanCardNumber || '—' }}</span></div>
+            <div><span class="field-label">Cartão SUS</span><span class="field-value">{{ p.susCardNumber || '—' }}</span></div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Consultas">
+          <div class="tab-content">
+            <app-empty-state *ngIf="p.appointments.length === 0" icon="event_busy" title="Sem consultas" message="Este paciente ainda não possui consultas registradas."></app-empty-state>
+            <table class="simple-table" *ngIf="p.appointments.length > 0">
+              <thead><tr><th>Data</th><th>Horário</th><th>Médico</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr *ngFor="let a of p.appointments">
+                  <td>{{ a.date | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ a.time }}</td>
+                  <td>{{ a.doctorName }}</td>
+                  <td><app-status-badge [label]="appointmentStatusLabels[a.status]" [variant]="appointmentStatusVariant(a.status)"></app-status-badge></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Internações">
+          <div class="tab-content">
+            <app-empty-state *ngIf="p.hospitalizations.length === 0" icon="local_hospital" title="Sem internações" message="Este paciente nunca foi internado."></app-empty-state>
+            <table class="simple-table" *ngIf="p.hospitalizations.length > 0">
+              <thead><tr><th>Entrada</th><th>Alta</th><th>Quarto/Leito</th><th>Diagnóstico</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr *ngFor="let h of p.hospitalizations">
+                  <td>{{ h.admissionDate | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ h.dischargeDate ? (h.dischargeDate | date: 'dd/MM/yyyy') : '—' }}</td>
+                  <td>{{ h.room }}/{{ h.bed }}</td>
+                  <td>{{ h.diagnosis }}</td>
+                  <td><app-status-badge [label]="hospitalizationStatusLabels[h.status]" [variant]="hospitalizationStatusVariant(h.status)"></app-status-badge></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Cirurgias">
+          <div class="tab-content">
+            <app-empty-state *ngIf="p.surgeries.length === 0" icon="healing" title="Sem cirurgias" message="Este paciente não possui cirurgias registradas."></app-empty-state>
+            <table class="simple-table" *ngIf="p.surgeries.length > 0">
+              <thead><tr><th>Data</th><th>Tipo</th><th>Médico</th><th>Sala</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr *ngFor="let s of p.surgeries">
+                  <td>{{ s.date | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ s.type }}</td>
+                  <td>{{ s.doctorName }}</td>
+                  <td>{{ s.room }}</td>
+                  <td><app-status-badge [label]="surgeryStatusLabels[s.status]" [variant]="surgeryStatusVariant(s.status)"></app-status-badge></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Prontuários">
+          <div class="tab-content">
+            <app-empty-state *ngIf="p.medicalRecords.length === 0" icon="description" title="Sem prontuários" message="Nenhum prontuário registrado para este paciente."></app-empty-state>
+            <div class="record-card" *ngFor="let r of p.medicalRecords">
+              <div class="record-header">
+                <strong>{{ r.date | date: 'dd/MM/yyyy' }}</strong>
+                <span>{{ r.doctorName }}</span>
+              </div>
+              <p><strong>Queixa:</strong> {{ r.chiefComplaint }}</p>
+              <p><strong>Diagnóstico:</strong> {{ r.diagnosis }}</p>
+              <p><strong>Prescrição:</strong> {{ r.prescription }}</p>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Pagamentos">
+          <div class="tab-content">
+            <app-empty-state *ngIf="p.payments.length === 0" icon="payments" title="Sem pagamentos" message="Nenhum pagamento registrado para este paciente."></app-empty-state>
+            <table class="simple-table" *ngIf="p.payments.length > 0">
+              <thead><tr><th>Descrição</th><th>Valor</th><th>Vencimento</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr *ngFor="let pay of p.payments">
+                  <td>{{ pay.description }}</td>
+                  <td>{{ pay.amount | currency: 'BRL' }}</td>
+                  <td>{{ pay.dueDate | date: 'dd/MM/yyyy' }}</td>
+                  <td><app-status-badge [label]="paymentStatusLabels[pay.status]" [variant]="paymentStatusVariant(pay.status)"></app-status-badge></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="loading-wrapper"><mat-spinner></mat-spinner></div>
+</ng-template>

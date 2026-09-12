@@ -1,0 +1,14 @@
+<div class="shell" [class.mobile-open]="mobileOpen">
+  <div class="shell-sidebar">
+    <app-sidebar [collapsed]="collapsed" (navigate)="closeMobileSidebar()"></app-sidebar>
+  </div>
+
+  <div class="shell-backdrop" (click)="closeMobileSidebar()"></div>
+
+  <div class="shell-main">
+    <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+    <main class="shell-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

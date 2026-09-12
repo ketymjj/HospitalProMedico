@@ -1,0 +1,122 @@
+<div class="hpm-page">
+  <app-page-header title="Relatórios" subtitle="Visualize estatísticas e relatórios de atendimentos">
+    <button mat-stroked-button (click)="exportPdf()"><mat-icon>picture_as_pdf</mat-icon> Exportar PDF</button>
+    <button mat-stroked-button (click)="exportExcel()"><mat-icon>grid_on</mat-icon> Exportar Excel</button>
+    <button mat-stroked-button (click)="printReport()"><mat-icon>print</mat-icon> Imprimir</button>
+  </app-page-header>
+
+  <div class="hpm-card">
+    <div class="hpm-filters" style="padding: 16px 16px 0;">
+      <mat-form-field appearance="outline" style="width: 200px">
+        <mat-label>Data inicial</mat-label>
+        <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" />
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 200px">
+        <mat-label>Data final</mat-label>
+        <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" />
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" (click)="load()"><mat-icon>filter_alt</mat-icon> Filtrar</button>
+    </div>
+
+    <div class="revenue-banner" *ngIf="data() as d">
+      Faturamento total no período: <strong>{{ d.totalRevenue | currency: 'BRL' }}</strong>
+    </div>
+
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)" *ngIf="data() as d">
+      <mat-tab label="Pacientes">
+        <div class="tab-content">
+          <app-empty-state *ngIf="d.patients.length === 0" title="Sem dados" message="Nenhum paciente no período selecionado."></app-empty-state>
+          <table class="simple-table" *ngIf="d.patients.length > 0">
+            <thead><tr><th>Nome</th><th>CPF</th><th>Telefone</th><th>Plano</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let p of d.patients">
+                <td>{{ p.name }}</td><td>{{ p.cpf }}</td><td>{{ p.phone }}</td>
+                <td>{{ p.healthPlanName || 'Particular' }}</td><td>{{ statusLabels[p.status] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Consultas">
+        <div class="tab-content">
+          <app-empty-state *ngIf="d.appointments.length === 0" title="Sem dados" message="Nenhuma consulta no período selecionado."></app-empty-state>
+          <table class="simple-table" *ngIf="d.appointments.length > 0">
+            <thead><tr><th>Data</th><th>Horário</th><th>Paciente</th><th>Médico</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let a of d.appointments">
+                <td>{{ a.date | date: 'dd/MM/yyyy' }}</td><td>{{ a.time }}</td><td>{{ a.patientName }}</td>
+                <td>{{ a.doctorName }}</td><td>{{ appointmentStatusLabels[a.status] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Internações">
+        <div class="tab-content">
+          <app-empty-state *ngIf="d.hospitalizations.length === 0" title="Sem dados" message="Nenhuma internação no período selecionado."></app-empty-state>
+          <table class="simple-table" *ngIf="d.hospitalizations.length > 0">
+            <thead><tr><th>Paciente</th><th>Médico</th><th>Entrada</th><th>Quarto/Leito</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let h of d.hospitalizations">
+                <td>{{ h.patientName }}</td><td>{{ h.doctorName }}</td><td>{{ h.admissionDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ h.room }}/{{ h.bed }}</td><td>{{ hospitalizationStatusLabels[h.status] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Cirurgias">
+        <div class="tab-content">
+          <app-empty-state *ngIf="d.surgeries.length === 0" title="Sem dados" message="Nenhuma cirurgia no período selecionado."></app-empty-state>
+          <table class="simple-table" *ngIf="d.surgeries.length > 0">
+            <thead><tr><th>Paciente</th><th>Médico</th><th>Tipo</th><th>Data</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let s of d.surgeries">
+                <td>{{ s.patientName }}</td><td>{{ s.doctorName }}</td><td>{{ s.type }}</td>
+                <td>{{ s.date | date: 'dd/MM/yyyy' }}</td><td>{{ surgeryStatusLabels[s.status] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Pagamentos">
+        <div class="tab-content">
+          <app-empty-state *ngIf="d.payments.length === 0" title="Sem dados" message="Nenhum pagamento no período selecionado."></app-empty-state>
+          <table class="simple-table" *ngIf="d.payments.length > 0">
+            <thead><tr><th>Paciente</th><th>Descrição</th><th>Valor</th><th>Vencimento</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let p of d.payments">
+                <td>{{ p.patientName }}</td><td>{{ p.description }}</td><td>{{ p.amount | currency: 'BRL' }}</td>
+                <td>{{ p.dueDate | date: 'dd/MM/yyyy' }}</td><td>{{ paymentStatusLabels[p.status] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Planos de Saúde">
+        <div class="tab-content">
+          <app-empty-state *ngIf="d.healthPlans.length === 0" title="Sem dados" message="Nenhum plano cadastrado."></app-empty-state>
+          <table class="simple-table" *ngIf="d.healthPlans.length > 0">
+            <thead><tr><th>Nome</th><th>Código</th><th>Pacientes</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let h of d.healthPlans">
+                <td>{{ h.name }}</td><td>{{ h.code }}</td><td>{{ h.patientsCount }}</td><td>{{ statusLabels[h.status] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
