@@ -12,13 +12,16 @@ import { HealthPlanService } from '../../../core/services/health-plan.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { HEALTH_PLAN_TYPE_LABELS, HealthPlanType, REGISTER_STATUS_LABELS, RegisterStatus } from '../../../core/models/enums';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { CnpjMaskDirective } from '../../../shared/directives/cnpj-mask.directive';
+import { PhoneMaskDirective } from '../../../shared/directives/phone-mask.directive';
 
 @Component({
   selector: 'app-health-plan-form',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatButtonModule, MatIconModule, PageHeaderComponent
+    MatSelectModule, MatButtonModule, MatIconModule, PageHeaderComponent,
+    CnpjMaskDirective, PhoneMaskDirective
   ],
   templateUrl: './health-plan-form.component.html'
 })

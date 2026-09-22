@@ -9,14 +9,14 @@
     <div class="hpm-filters" style="padding: 16px 16px 0;">
       <mat-form-field appearance="outline" style="width: 200px">
         <mat-label>Data inicial</mat-label>
-        <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" />
+        <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" style="width: 200px">
         <mat-label>Data final</mat-label>
-        <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" />
+        <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>

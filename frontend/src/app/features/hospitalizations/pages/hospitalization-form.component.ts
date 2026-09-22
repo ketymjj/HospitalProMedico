@@ -22,13 +22,15 @@ import {
   HospitalizationType
 } from '../../../core/models/enums';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { DateMaskDirective } from '../../../shared/directives/date-mask.directive';
 
 @Component({
   selector: 'app-hospitalization-form',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent
+    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent,
+    DateMaskDirective
   ],
   templateUrl: './hospitalization-form.component.html'
 })

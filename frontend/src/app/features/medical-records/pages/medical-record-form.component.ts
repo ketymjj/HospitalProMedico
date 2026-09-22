@@ -16,13 +16,15 @@ import { ToastService } from '../../../core/services/toast.service';
 import { PatientListItem } from '../../../core/models/patient.model';
 import { DoctorDto } from '../../../core/models/doctor.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { DateMaskDirective } from '../../../shared/directives/date-mask.directive';
 
 @Component({
   selector: 'app-medical-record-form',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent
+    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent,
+    DateMaskDirective
   ],
   templateUrl: './medical-record-form.component.html'
 })

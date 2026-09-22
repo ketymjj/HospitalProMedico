@@ -15,13 +15,15 @@ import { ToastService } from '../../../core/services/toast.service';
 import { PatientListItem } from '../../../core/models/patient.model';
 import { PAYMENT_METHOD_LABELS, PAYMENT_STATUS_LABELS, PaymentMethod, PaymentStatus } from '../../../core/models/enums';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { DateMaskDirective } from '../../../shared/directives/date-mask.directive';
 
 @Component({
   selector: 'app-payment-form',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent
+    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent,
+    DateMaskDirective
   ],
   templateUrl: './payment-form.component.html'
 })

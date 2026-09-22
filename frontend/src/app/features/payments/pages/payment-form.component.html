@@ -31,14 +31,14 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Data de vencimento</mat-label>
-        <input matInput [matDatepicker]="duePicker" formControlName="dueDate" />
+        <input matInput [matDatepicker]="duePicker" formControlName="dueDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
         <mat-datepicker-toggle matSuffix [for]="duePicker"></mat-datepicker-toggle>
         <mat-datepicker #duePicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" *ngIf="isEditMode">
         <mat-label>Data de pagamento</mat-label>
-        <input matInput [matDatepicker]="payPicker" formControlName="paymentDate" />
+        <input matInput [matDatepicker]="payPicker" formControlName="paymentDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
         <mat-datepicker-toggle matSuffix [for]="payPicker"></mat-datepicker-toggle>
         <mat-datepicker #payPicker></mat-datepicker>
       </mat-form-field>

@@ -17,13 +17,15 @@ import { PatientListItem } from '../../../core/models/patient.model';
 import { DoctorDto } from '../../../core/models/doctor.model';
 import { SURGERY_STATUS_LABELS, SurgeryStatus } from '../../../core/models/enums';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { DateMaskDirective } from '../../../shared/directives/date-mask.directive';
 
 @Component({
   selector: 'app-surgery-form',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent
+    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent,
+    DateMaskDirective
   ],
   templateUrl: './surgery-form.component.html'
 })

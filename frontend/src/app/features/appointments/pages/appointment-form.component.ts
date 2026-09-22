@@ -17,13 +17,15 @@ import { PatientListItem } from '../../../core/models/patient.model';
 import { DoctorDto } from '../../../core/models/doctor.model';
 import { AppointmentStatus, APPOINTMENT_STATUS_LABELS, APPOINTMENT_TYPE_LABELS, AppointmentType } from '../../../core/models/enums';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import { DateMaskDirective } from '../../../shared/directives/date-mask.directive';
 
 @Component({
   selector: 'app-appointment-form',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule, MatFormFieldModule, MatInputModule,
-    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent
+    MatSelectModule, MatButtonModule, MatIconModule, MatDatepickerModule, PageHeaderComponent,
+    DateMaskDirective
   ],
   templateUrl: './appointment-form.component.html'
 })

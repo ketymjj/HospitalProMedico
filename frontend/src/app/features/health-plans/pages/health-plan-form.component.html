@@ -17,7 +17,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>CNPJ</mat-label>
-        <input matInput formControlName="cnpj" />
+        <input matInput formControlName="cnpj" appCnpjMask placeholder="00.000.000/0000-00" maxlength="18" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -36,7 +36,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Telefone</mat-label>
-        <input matInput formControlName="phone" />
+        <input matInput formControlName="phone" appPhoneMask placeholder="(00) 00000-0000" maxlength="15" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="span-2">

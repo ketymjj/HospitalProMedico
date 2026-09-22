@@ -35,21 +35,21 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Data de entrada</mat-label>
-        <input matInput [matDatepicker]="admissionPicker" formControlName="admissionDate" />
+        <input matInput [matDatepicker]="admissionPicker" formControlName="admissionDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
         <mat-datepicker-toggle matSuffix [for]="admissionPicker"></mat-datepicker-toggle>
         <mat-datepicker #admissionPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Previsão de alta</mat-label>
-        <input matInput [matDatepicker]="expectedPicker" formControlName="expectedDischargeDate" />
+        <input matInput [matDatepicker]="expectedPicker" formControlName="expectedDischargeDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
         <mat-datepicker-toggle matSuffix [for]="expectedPicker"></mat-datepicker-toggle>
         <mat-datepicker #expectedPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="outline" *ngIf="isEditMode">
         <mat-label>Data de alta</mat-label>
-        <input matInput [matDatepicker]="dischargePicker" formControlName="dischargeDate" />
+        <input matInput [matDatepicker]="dischargePicker" formControlName="dischargeDate" appDateMask placeholder="dd/mm/aaaa" maxlength="10" />
         <mat-datepicker-toggle matSuffix [for]="dischargePicker"></mat-datepicker-toggle>
         <mat-datepicker #dischargePicker></mat-datepicker>
       </mat-form-field>

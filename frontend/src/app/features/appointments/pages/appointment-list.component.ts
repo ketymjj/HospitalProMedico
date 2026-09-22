@@ -27,6 +27,7 @@ import { ConfirmDialogService } from '../../../core/services/confirm-dialog.serv
 import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserRole } from '../../../core/models/enums';
+import { DateMaskDirective } from '../../../shared/directives/date-mask.directive';
 
 @Component({
   selector: 'app-appointment-list',
@@ -34,7 +35,8 @@ import { UserRole } from '../../../core/models/enums';
   imports: [
     CommonModule, RouterModule, FormsModule, MatTableModule, MatPaginatorModule, MatFormFieldModule,
     MatInputModule, MatSelectModule, MatButtonModule, MatButtonToggleModule, MatIconModule, MatTooltipModule,
-    MatProgressBarModule, MatDatepickerModule, StatusBadgeComponent, EmptyStateComponent, PageHeaderComponent
+    MatProgressBarModule, MatDatepickerModule, StatusBadgeComponent, EmptyStateComponent, PageHeaderComponent,
+    DateMaskDirective
   ],
   templateUrl: './appointment-list.component.html',
   styleUrl: './appointment-list.component.scss'

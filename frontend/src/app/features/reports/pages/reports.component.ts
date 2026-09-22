@@ -15,6 +15,7 @@ import { ReportService } from '../../../core/services/report.service';
 import { ReportsSummary } from '../../../core/models/report.model';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
+import { DateMaskDirective } from '../../../shared/directives/date-mask.directive';
 import {
   APPOINTMENT_STATUS_LABELS,
   HOSPITALIZATION_STATUS_LABELS,
@@ -30,7 +31,8 @@ type ReportTab = 'patients' | 'appointments' | 'hospitalizations' | 'surgeries' 
   standalone: true,
   imports: [
     CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatDatepickerModule,
-    MatButtonModule, MatIconModule, MatTabsModule, PageHeaderComponent, EmptyStateComponent
+    MatButtonModule, MatIconModule, MatTabsModule, PageHeaderComponent, EmptyStateComponent,
+    DateMaskDirective
   ],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss'
